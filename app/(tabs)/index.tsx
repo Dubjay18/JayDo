@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
@@ -85,7 +85,14 @@ export default function TabOneScreen() {
             see all
           </MonoText>
         </View>
-        <TaskCard />
+        <ScrollView style={{ flex: 0.5 }}>
+          <TaskCard />
+          <TaskCard />
+          <TaskCard />
+          <TaskCard />
+          <TaskCard />
+          <TaskCard />
+        </ScrollView>
       </View>
       {/* <EditScreenInfo path='app/(tabs)/index.tsx' /> */}
       <StatusBar style='light' />
