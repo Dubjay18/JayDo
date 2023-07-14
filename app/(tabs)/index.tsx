@@ -6,6 +6,7 @@ import Colors from "../../constants/Colors";
 import { StatusBar } from "expo-status-bar";
 import { MonoText } from "../../components/StyledText";
 import { Avatar, Input } from "@rneui/base";
+import TaskCard from "../../components/TaskCard";
 
 export default function TabOneScreen() {
   const input = React.createRef();
@@ -16,7 +17,7 @@ export default function TabOneScreen() {
       darkColor={Colors.dark.text}>
       <View style={{ flex: 0.1 }}></View>
       <View
-        style={{ flex: 0.2, paddingVertical: 20 }}
+        style={{ flex: 0.2 }}
         lightColor={Colors.light.text}
         darkColor={Colors.dark.background}>
         <View
@@ -63,7 +64,29 @@ export default function TabOneScreen() {
           // darkColor={Colors.dark.background}
         />
       </View>
-      <View style={{ flex: 0.7 }}></View>
+      <View
+        style={{ flex: 0.7, width: "100%" }}
+        lightColor={Colors.light.text}
+        darkColor={Colors.dark.background}>
+        <View
+          lightColor={Colors.light.text}
+          darkColor={Colors.dark.background}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            flex: 0.1,
+          }}>
+          <MonoText style={styles.subTitle}>
+            Today's Tasks
+          </MonoText>
+          <MonoText style={styles.subText}>
+            see all
+          </MonoText>
+        </View>
+        <TaskCard />
+      </View>
       {/* <EditScreenInfo path='app/(tabs)/index.tsx' /> */}
       <StatusBar style='light' />
     </View>
@@ -82,6 +105,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.dark.text,
     maxWidth: "90%",
+  },
+  subTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.dark.text,
+    marginHorizontal: 20,
+  },
+  subText: {
+    fontSize: 15,
+    color: Colors.dark.tint,
   },
   input: {
     backgroundColor: Colors.dark.inputBackground,

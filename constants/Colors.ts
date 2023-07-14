@@ -17,4 +17,8 @@ export default {
     tabIconSelected: tintColorDark,
     inputBackground: "#171818",
   },
+  todo: {
+    done: "#64E707",
+    pending: "#9D2208",
+  },
 };
