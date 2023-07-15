@@ -4,9 +4,13 @@ import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { StatusBar } from "expo-status-bar";
-import { MonoText } from "../../components/StyledText";
-import { Avatar, Input } from "@rneui/base";
+import {
+  MonoText,
+  PoppinsBoldText,
+} from "../../components/StyledText";
+import { Avatar, FAB, Input } from "@rneui/base";
 import TaskCard from "../../components/TaskCard";
+import { router } from "expo-router";
 
 export default function TabOneScreen() {
   const input = React.createRef();
@@ -30,9 +34,9 @@ export default function TabOneScreen() {
             gap: 20,
             paddingHorizontal: 20,
           }}>
-          <MonoText style={styles.title}>
+          <PoppinsBoldText style={styles.title}>
             You have got 4 tasks today to complete
-          </MonoText>
+          </PoppinsBoldText>
           <Avatar
             size={40}
             rounded
@@ -90,12 +94,25 @@ export default function TabOneScreen() {
           <TaskCard />
           <TaskCard />
           <TaskCard />
-          <TaskCard />
-          <TaskCard />
         </ScrollView>
       </View>
       {/* <EditScreenInfo path='app/(tabs)/index.tsx' /> */}
       <StatusBar style='light' />
+      <FAB
+        style={{
+          position: "absolute",
+          bottom: 20,
+          right: 10,
+          backgroundColor: Colors.dark.tint,
+          zIndex: 20,
+        }}
+        color={Colors.dark.tint}
+        loading={false}
+        visible={true}
+        icon={{ name: "add", color: "white" }}
+        size='small'
+        onPress={() => router.push("AddTask")}
+      />
     </View>
   );
 }
@@ -109,7 +126,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     color: Colors.dark.text,
     maxWidth: "90%",
   },
