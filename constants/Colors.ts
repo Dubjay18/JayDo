@@ -20,5 +20,8 @@ export default {
   todo: {
     done: "#64E707",
     pending: "#9D2208",
+    low: "#F2C94C",
+    medium: "#F29F05",
+    high: "#F20505",
   },
 };

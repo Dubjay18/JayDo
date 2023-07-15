@@ -5,6 +5,7 @@ import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import Colors from "../constants/Colors";
 import { MonoText } from "../components/StyledText";
+import TaskCreationForm from "../components/TaskCreationForm";
 
 export default function ModalScreen() {
   return (
@@ -16,13 +17,14 @@ export default function ModalScreen() {
         style={styles.title}
         lightColor={Colors.light.text}
         darkColor={Colors.dark.text}>
-        Create New Task
+        Schedule
       </MonoText>
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       {/* <StatusBar
         style={Platform.OS === "ios" ? "light" : "auto"}
       /> */}
+      <TaskCreationForm />
       <StatusBar style='light' />
     </View>
   );
@@ -31,7 +33,8 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
+    paddingHorizontal: 25,
     backgroundColor: Colors.dark.background,
   },
   title: {
