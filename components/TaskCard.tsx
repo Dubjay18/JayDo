@@ -2,11 +2,18 @@ import { StyleSheet } from "react-native";
 import React from "react";
 import Colors from "../constants/Colors";
 import { View } from "./Themed";
-import { MonoText } from "./StyledText";
+import { MonoText, PoppinsBoldText } from "./StyledText";
 import { CheckBox } from "@rneui/themed";
 
-const TaskCard = () => {
-  const [selectedIndex, setIndex] = React.useState(0);
+interface ITaskCardProps {
+  title?: string;
+  description?: string;
+}
+const TaskCard = ({
+  title = "Mobile app",
+  description = "build a mobile app",
+}: ITaskCardProps) => {
+  const [selectedIndex, setIndex] = React.useState(false);
   return (
     <View
       style={styles.container}
@@ -19,16 +26,19 @@ const TaskCard = () => {
         }}
         lightColor={Colors.light.text}
         darkColor={Colors.dark.inputBackground}>
-        <MonoText style={styles.title}>Mobile app</MonoText>
+        <PoppinsBoldText style={styles.title}>
+          {title}
+        </PoppinsBoldText>
         <MonoText style={styles.subTitle}>
-          Mobile app
+          {description}
         </MonoText>
       </View>
       <CheckBox
-        checked={selectedIndex === 1}
-        onPress={() => setIndex(0)}
+        checked={selectedIndex}
+        onPress={() => setIndex(!selectedIndex)}
         checkedIcon='dot-circle-o'
         uncheckedIcon='circle-o'
+        size={25}
         containerStyle={{
           backgroundColor: Colors.dark.inputBackground,
         }}
@@ -57,6 +67,7 @@ const styles = StyleSheet.create({
     borderLeftColor: Colors.todo.low,
     flexDirection: "row",
     width: "90%",
+    overflow: "hidden",
   },
   subTitle: {
     fontSize: 15,

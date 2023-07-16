@@ -1,5 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
+import { Link, Tabs, router } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
@@ -62,12 +62,25 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name='two'
+        name='profile'
         options={{
-          title: "Tab Two",
+          title: "profile",
+          tabBarLabel: "_",
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name='code' color={color} />
+            <TabBarIcon name='user' color={color} />
           ),
+          headerTitle: "My Account",
+          // headerLeft: () => (
+          //   <FontAwesome
+          //     name='chevron-left'
+          //     size={20}
+          //     color={Colors.dark.text}
+          //     style={{
+          //       marginHorizontal: 20,
+          //     }}
+          //     onPress={() => router.back()}
+          //   />
+          // ),
         }}
       />
     </Tabs>
