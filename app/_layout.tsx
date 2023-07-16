@@ -83,6 +83,10 @@ function RootLayoutNav() {
               // ),
             }}
           />
+          <Stack.Screen
+            name='AllTasks'
+            // options={{ headerShown: false }}
+          />
         </Stack>
       </ThemeProvider>
     </>

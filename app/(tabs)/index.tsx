@@ -85,7 +85,9 @@ export default function TabOneScreen() {
           <MonoText style={styles.subTitle}>
             Today's Tasks
           </MonoText>
-          <MonoText style={styles.subText}>
+          <MonoText
+            style={styles.subText}
+            onPress={() => router.push("AllTasks")}>
             see all
           </MonoText>
         </View>
