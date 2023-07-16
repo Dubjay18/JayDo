@@ -6,6 +6,7 @@ import { Text, View } from "../components/Themed";
 import Colors from "../constants/Colors";
 import { MonoText } from "../components/StyledText";
 import TaskCreationForm from "../components/TaskCreationForm";
+import CustomCalendar from "../components/CustomCalender";
 
 export default function ModalScreen() {
   return (
@@ -13,6 +14,7 @@ export default function ModalScreen() {
       style={styles.container}
       lightColor={Colors.light.background}
       darkColor={Colors.dark.background}>
+      <CustomCalendar />
       <MonoText
         style={styles.title}
         lightColor={Colors.light.text}
