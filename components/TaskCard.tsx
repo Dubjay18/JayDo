@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Colors from "../constants/Colors";
 import { View } from "./Themed";
@@ -15,35 +15,37 @@ const TaskCard = ({
 }: ITaskCardProps) => {
   const [selectedIndex, setIndex] = React.useState(false);
   return (
-    <View
-      style={styles.container}
-      lightColor={Colors.light.text}
-      darkColor={Colors.dark.background}>
+    <TouchableOpacity>
       <View
-        style={{
-          width: "90%",
-          backgroundColor: "transparent",
-        }}
+        style={styles.container}
         lightColor={Colors.light.text}
-        darkColor={Colors.dark.inputBackground}>
-        <PoppinsBoldText style={styles.title}>
-          {title}
-        </PoppinsBoldText>
-        <MonoText style={styles.subTitle}>
-          {description}
-        </MonoText>
+        darkColor={Colors.dark.background}>
+        <View
+          style={{
+            width: "90%",
+            backgroundColor: "transparent",
+          }}
+          lightColor={Colors.light.text}
+          darkColor={Colors.dark.inputBackground}>
+          <PoppinsBoldText style={styles.title}>
+            {title}
+          </PoppinsBoldText>
+          <MonoText style={styles.subTitle}>
+            {description}
+          </MonoText>
+        </View>
+        <CheckBox
+          checked={selectedIndex}
+          onPress={() => setIndex(!selectedIndex)}
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          size={25}
+          containerStyle={{
+            backgroundColor: Colors.dark.inputBackground,
+          }}
+        />
       </View>
-      <CheckBox
-        checked={selectedIndex}
-        onPress={() => setIndex(!selectedIndex)}
-        checkedIcon='dot-circle-o'
-        uncheckedIcon='circle-o'
-        size={25}
-        containerStyle={{
-          backgroundColor: Colors.dark.inputBackground,
-        }}
-      />
-    </View>
+    </TouchableOpacity>
   );
 };
 

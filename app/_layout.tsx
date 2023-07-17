@@ -5,11 +5,12 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack, router } from "expo-router";
+import { Stack, router } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { View } from "../components/Themed";
 import Colors from "../constants/Colors";
+import SplashScreen from "../components/SplashScreen";
 
 export {
   // Catch any errors thrown by the Layout component.
