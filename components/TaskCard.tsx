@@ -4,6 +4,7 @@ import Colors from "../constants/Colors";
 import { View } from "./Themed";
 import { MonoText, PoppinsBoldText } from "./StyledText";
 import { CheckBox } from "@rneui/themed";
+import { Link, router } from "expo-router";
 
 interface ITaskCardProps {
   title?: string;
@@ -15,7 +16,8 @@ const TaskCard = ({
 }: ITaskCardProps) => {
   const [selectedIndex, setIndex] = React.useState(false);
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => router.push("/TaskModal")}>
       <View
         style={styles.container}
         lightColor={Colors.light.text}

@@ -58,7 +58,8 @@ function RootLayoutNav() {
           <Stack.Screen
             name='AddTask'
             options={{
-              presentation: "modal",
+              presentation: "transparentModal",
+              gestureEnabled: true,
               headerTitle: "Create New Task",
               headerStyle: {
                 backgroundColor: "#000",
@@ -87,6 +88,22 @@ function RootLayoutNav() {
           <Stack.Screen
             name='AllTasks'
             // options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='TaskModal'
+            options={{
+              presentation: "modal",
+              gestureEnabled: true,
+              headerTitle: "Task Details",
+              headerStyle: {
+                backgroundColor: "#000",
+              },
+              headerTintColor: Colors.dark.text,
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+              // ...TransitionPresets.ModalPresentationIOS,
+            }}
           />
         </Stack>
       </ThemeProvider>
