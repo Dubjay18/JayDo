@@ -94,7 +94,7 @@ function RootLayoutNav() {
             options={{
               presentation: "modal",
               gestureEnabled: true,
-              headerTitle: "Task Details",
+              // headerTitle: "Task Details",
               headerStyle: {
                 backgroundColor: "#000",
               },

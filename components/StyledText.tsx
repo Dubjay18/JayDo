@@ -1,3 +1,4 @@
+import Colors from "../constants/Colors";
 import { Text, TextProps } from "./Themed";
 
 export function MonoText(props: TextProps) {
@@ -12,7 +13,10 @@ export function PoppinsText(props: TextProps) {
   return (
     <Text
       {...props}
-      style={[props.style, { fontFamily: "Poppins" }]}
+      style={[
+        props.style,
+        { fontFamily: "Poppins", color: Colors.dark.text },
+      ]}
     />
   );
 }
