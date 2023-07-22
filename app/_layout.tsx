@@ -7,17 +7,18 @@ import {
 import { useFonts } from "expo-font";
 import { Stack, router } from "expo-router";
 import React, { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Image } from "react-native";
 import { View } from "../components/Themed";
 import Colors from "../constants/Colors";
 import SplashScreen from "../components/SplashScreen";
 import * as SecureStore from "expo-secure-store";
 import Onboarding from "react-native-onboarding-swiper";
-import { Image } from "@rneui/base";
+
 import {
   MonoText,
   PoppinsBoldText,
 } from "../components/StyledText";
+import { Button, Icon } from "@rneui/base";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -39,21 +40,62 @@ export default function RootLayout() {
     PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
     ...FontAwesome.font,
   });
-
-  // React.useEffect(() => {
-  //   async function setData() {
-  //     const appData = await await SecureStore.getItemAsync(
-  //       "appLaunched"
-  //     );
-  //     if (appData == null) {
-  //       setFirstLaunch(true);
-  //       SecureStore.setItemAsync("appLaunched", "false");
-  //     } else {
-  //       setFirstLaunch(false);
-  //     }
-  //   }
-  //   setData();
-  // }, []);
+  const Next = ({ ...props }) => (
+    <>
+      {/* {console.log(props.onPress)} */}
+      <Button
+        onPress={props.onPress}
+        buttonStyle={{
+          backgroundColor: "transparent",
+          borderWidth: 4,
+          borderColor: Colors.dark.tint,
+          borderRadius: 200,
+          width: 50,
+          height: 50,
+          marginRight: 20,
+        }}>
+        <Icon
+          name='arrow-right'
+          size={25}
+          color={Colors.dark.tint}
+        />
+      </Button>
+    </>
+  );
+  const Dots = ({ selected }: any) => {
+    let backgroundColor;
+    backgroundColor = selected ? Colors.dark.tint : "gray";
+    return (
+      <>
+        <View
+          style={{
+            width: selected ? 30 : 10,
+            height: 10,
+            marginHorizontal: 3,
+            borderRadius: 10,
+            backgroundColor,
+          }}
+        />
+      </>
+    );
+  };
+  React.useEffect(() => {
+    async function setData() {
+      const appData = await await SecureStore.getItemAsync(
+        "appLaunched-jaydo"
+      );
+      if (appData == null) {
+        setFirstLaunch(true);
+        SecureStore.setItemAsync(
+          "appLaunched-jaydo",
+          "false"
+        );
+      } else {
+        setFirstLaunch(false);
+      }
+    }
+    setData();
+  }, []);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -67,19 +109,33 @@ export default function RootLayout() {
       {loaded &&
         (firstLaunch ? (
           <Onboarding
+            onDone={() => setFirstLaunch(false)}
+            DotComponent={Dots}
+            NextButtonComponent={Next}
+            showSkip={false}
             pages={[
               {
                 backgroundColor: Colors.dark.background,
                 image: (
                   <Image
-                    source={require("../assets/images/connected.png")}
+                    source={require("../assets/images/tasks2.png")}
+                    style={{ height: 200, width: 200 }}
                   />
+                  // <SvgUri
+                  //   width='200'
+                  //   height='200'
+                  //   source={{
+                  //     uri: require("../assets/images/tasks.svg"),
+                  //   }}
+                  // />
                 ),
                 title: (
                   <PoppinsBoldText
                     style={{
                       fontSize: 25,
                       color: Colors.dark.text,
+                      paddingHorizontal: 20,
+                      textAlign: "center",
                     }}>
                     Manage your tasks very easy!
                   </PoppinsBoldText>
@@ -95,12 +151,29 @@ export default function RootLayout() {
                 backgroundColor: Colors.dark.background,
                 image: (
                   <Image
-                    source={require("../assets/images/connected.png")}
+                    source={require("../assets/images/rocket.png")}
+                    style={{ height: 200, width: 200 }}
                   />
                 ),
-                title:
-                  "Get ready to boost your productivity with JayDo",
-                subtitle: "Let's get started!",
+                title: (
+                  <PoppinsBoldText
+                    style={{
+                      fontSize: 25,
+                      color: Colors.dark.text,
+                      paddingHorizontal: 20,
+                      textAlign: "center",
+                    }}>
+                    Get ready to boost your productivity
+                    with JayDo
+                  </PoppinsBoldText>
+                ),
+
+                subtitle: (
+                  <MonoText
+                    style={{ color: Colors.dark.text }}>
+                    Let's get started!
+                  </MonoText>
+                ),
               },
             ]}
           />
