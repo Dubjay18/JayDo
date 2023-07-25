@@ -27,7 +27,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "AuthPage",
 };
 
 export default function RootLayout() {
@@ -191,11 +191,16 @@ function RootLayoutNav() {
     <>
       <ThemeProvider value={DarkTheme}>
         <Stack>
-          {/* <Stack.Screen
-          name="onboard"
-          options={{ headerShown: false }}
-          
-          /> */}
+          <Stack.Screen
+            name='AuthPage'
+            options={{
+              headerStyle: {
+                backgroundColor: Colors.dark.tint,
+              },
+              headerTitle: "Sign In",
+            }}
+            // options={{ headerShown: false }}
+          />
           <Stack.Screen
             name='(tabs)'
             options={{ headerShown: false }}
