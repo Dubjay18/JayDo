@@ -56,11 +56,20 @@ const AuthPage = () => {
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
+        <Image
+          source={require("../assets/images/auth_pic.png")}
+          style={{
+            width: "100%",
+            height: 250,
+            marginTop: 20,
+          }}
+        />
         <PoppinsBoldText
           style={{
             color: Colors.dark.text,
             fontSize: 20,
             textAlign: "center",
+            marginTop: 20,
           }}>
           Create an account or Sign in to your JayDo account
         </PoppinsBoldText>
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     backgroundColor: Colors.dark.background,
-    marginTop: 100,
+    marginTop: 50,
     borderRadius: 16,
     shadowColor: "#000",
     shadowOffset: {
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.01)",
-    marginHorizontal: 50,
+
     paddingVertical: 70,
     overflow: "hidden",
     alignItems: "center",
