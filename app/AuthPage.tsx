@@ -1,8 +1,6 @@
 import {
   StyleSheet,
-  ImageBackground,
-  TouchableOpacity,
-  Text,
+  KeyboardAvoidingView,
   Image,
 } from "react-native";
 import React, { useEffect } from "react";
@@ -11,7 +9,7 @@ import { Button } from "@rneui/base";
 import Colors from "../constants/Colors";
 import {
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
 import { router } from "expo-router";
@@ -19,97 +17,103 @@ import {
   MonoText,
   PoppinsBoldText,
 } from "../components/StyledText";
-const image = {
-  uri: "https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg?auto=compress&cs=tinysrgb&w=1600",
-};
-const provider = new GoogleAuthProvider();
-const signinWithGoogle = () => {
-  console.log("hi", signInWithRedirect);
+import { StatusBar } from "expo-status-bar";
+import { Input } from "@rneui/themed";
 
-  signInWithRedirect(auth, provider)
-    .then((result) => {
-      console.log("result", result);
-
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential =
-        GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
-      // The signed-in user info.
-      //   const user = result?.user;
-      router.push("/(tabs)");
-      // ...
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential =
-        GoogleAuthProvider.credentialFromError(error);
-
-      // ...
-    });
-};
 const AuthPage = () => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(
+      (authUser) => {
+        if (authUser) {
+          router.replace("/(tabs)");
+        }
+      }
+    );
+    return unsubscribe;
+  }, []);
+
+  const signIn = () => {
+    setLoading(true);
+    signInWithEmailAndPassword(auth, email, password).catch(
+      (err) => {
+        alert(err);
+        setLoading(false);
+      }
+    );
+    setLoading(false);
+  };
   return (
-    <View style={styles.container}>
-      <View style={styles.container2}>
-        <Image
-          source={require("../assets/images/auth_pic.png")}
-          style={{
-            width: "100%",
-            height: 250,
-            marginTop: 20,
-          }}
-        />
-        <PoppinsBoldText
-          style={{
-            color: Colors.dark.text,
-            fontSize: 20,
-            textAlign: "center",
-            marginTop: 20,
-          }}>
-          Create an account or Sign in to your JayDo account
-        </PoppinsBoldText>
-        <View style={{ marginTop: 20, borderRadius: 10 }}>
-          <Button
-            onPress={signinWithGoogle}
-            buttonStyle={{
-              backgroundColor: "white",
-              borderRadius: 10,
-              paddingHorizontal: 10,
-              paddingVertical: 10,
-              justifyContent: "center",
-              alignItems: "center",
-            }}>
-            <Image
-              source={require("../assets/images/google-icon.png")}
-              style={{
-                width: 40,
-                height: 40,
-              }}
-            />
-          </Button>
+    <KeyboardAvoidingView
+      behavior='padding'
+      style={styles.container}>
+      <StatusBar style='light' />
+      <Image
+        source={require("../assets/images/auth_pic.png")}
+        style={{
+          width: "100%",
+          height: 250,
+          marginTop: 20,
+        }}
+      />
+      <PoppinsBoldText
+        style={{
+          color: Colors.dark.text,
+          fontSize: 20,
+          textAlign: "center",
+          marginTop: 20,
+        }}>
+        Create an account or Sign in to your JayDo account
+      </PoppinsBoldText>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <Input
+            placeholder='Email'
+            autoFocus
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <Input
+            placeholder='password'
+            secureTextEntry
+            value={password}
+            onChangeText={(text: any) => setPassword(text)}
+          />
         </View>
+
+        <Button
+          title='Login'
+          buttonStyle={styles.button}
+          onPress={signIn}
+          loading={loading}
+          disabled={loading}
+        />
+        <Button
+          buttonStyle={styles.button}
+          title='Register'
+          onPress={() => router.push("/RegisterScreen")}
+        />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 export default AuthPage;
 
 const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
+  inputContainer: {
+    width: 300,
+    backgroundColor: Colors.dark.background,
   },
+
   container: {
     flex: 1,
     flexDirection: "column",
     backgroundColor: Colors.dark.background,
+    alignItems: "center",
   },
   button: {
     backgroundColor: Colors.dark.tint,

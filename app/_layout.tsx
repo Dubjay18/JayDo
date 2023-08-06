@@ -27,7 +27,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "AuthPage",
+  initialRouteName: "(tabs)",
 };
 
 export default function RootLayout() {
@@ -81,7 +81,7 @@ export default function RootLayout() {
   };
   React.useEffect(() => {
     async function setData() {
-      const appData = await await SecureStore.getItemAsync(
+      const appData = await SecureStore.getItemAsync(
         "appLaunched-jaydo"
       );
       if (appData == null) {
@@ -191,16 +191,6 @@ function RootLayoutNav() {
     <>
       <ThemeProvider value={DarkTheme}>
         <Stack>
-          <Stack.Screen
-            name='AuthPage'
-            options={{
-              headerStyle: {
-                backgroundColor: Colors.dark.tint,
-              },
-              headerTitle: "Sign In",
-            }}
-            // options={{ headerShown: false }}
-          />
           <Stack.Screen
             name='(tabs)'
             options={{ headerShown: false }}
