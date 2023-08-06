@@ -11,6 +11,7 @@ import {
 import { Avatar, FAB, Input } from "@rneui/base";
 import TaskCard from "../../components/TaskCard";
 import { router } from "expo-router";
+import CatgoryCard from "../../components/CatgoryCard";
 
 export default function TabOneScreen() {
   const input = React.createRef();
@@ -72,6 +73,40 @@ export default function TabOneScreen() {
         style={{ flex: 0.7, width: "100%" }}
         lightColor={Colors.light.text}
         darkColor={Colors.dark.background}>
+        <View
+          lightColor={Colors.light.text}
+          darkColor={Colors.dark.background}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 30,
+            paddingVertical: 10,
+            flex: 0.1,
+          }}>
+          <MonoText style={styles.subTitle}>
+            Categories
+          </MonoText>
+          <MonoText
+            style={styles.subText}
+            onPress={() => router.push("AllTasks")}>
+            see all
+          </MonoText>
+        </View>
+        <View style={{ height: 140 }}>
+          <ScrollView
+            horizontal={true}
+            style={{
+              flex: 0.1,
+              backgroundColor: Colors.dark.background,
+              paddingHorizontal: 20,
+              gap: 4,
+            }}>
+            <CatgoryCard />
+            <CatgoryCard />
+            <CatgoryCard />
+            <CatgoryCard />
+          </ScrollView>
+        </View>
         <View
           lightColor={Colors.light.text}
           darkColor={Colors.dark.background}
