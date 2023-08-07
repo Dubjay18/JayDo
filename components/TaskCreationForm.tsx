@@ -4,12 +4,14 @@ import { Text, View } from "./Themed";
 import Colors from "../constants/Colors";
 import { Button, Input, Switch } from "@rneui/base";
 import { MonoText, PoppinsText } from "./StyledText";
+import CustomCalendar from "./CustomCalender";
 
 const TaskCreationForm = () => {
   const [checked, setChecked] = useState(false);
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] =
     useState("");
+  const [priority, setPriority] = useState("");
 
   const toggleSwitch = () => {
     setChecked(!checked);
@@ -19,11 +21,12 @@ const TaskCreationForm = () => {
       style={styles.container}
       lightColor={Colors.light.background}
       darkColor={Colors.dark.background}>
-      <Text
+      {/* <Text
         lightColor={Colors.light.text}
         darkColor={Colors.dark.text}>
         TaskCreationForm
-      </Text>
+      </Text> */}
+      <CustomCalendar />
       <Input
         labelStyle={{
           marginHorizontal: 20,
@@ -45,6 +48,8 @@ const TaskCreationForm = () => {
         // darkColor={Colors.dark.background}
       />
       <Input
+        multiline={true}
+        numberOfLines={4}
         labelStyle={{
           marginHorizontal: 20,
           marginVertical: 5,
@@ -82,37 +87,49 @@ const TaskCreationForm = () => {
           justifyContent: "space-evenly",
         }}>
         <Button
+          onPress={() => setPriority("low")}
           containerStyle={{
             borderRadius: 30,
             paddingHorizontal: 60,
-            width: 220,
+            width: 200,
           }}
           buttonStyle={{
-            backgroundColor: Colors.todo.low,
+            backgroundColor:
+              priority == "low"
+                ? Colors.dark.tint
+                : Colors.todo.low,
             borderRadius: 30,
           }}>
           Low
         </Button>
         <Button
+          onPress={() => setPriority("medium")}
           containerStyle={{
             borderRadius: 30,
             paddingHorizontal: 60,
-            width: 220,
+            width: 200,
           }}
           buttonStyle={{
-            backgroundColor: Colors.todo.medium,
+            backgroundColor:
+              priority == "medium"
+                ? Colors.dark.tint
+                : Colors.todo.medium,
             borderRadius: 30,
           }}>
           Medium
         </Button>
         <Button
+          onPress={() => setPriority("high")}
           containerStyle={{
             borderRadius: 30,
             paddingHorizontal: 60,
-            width: 220,
+            width: 200,
           }}
           buttonStyle={{
-            backgroundColor: Colors.todo.high,
+            backgroundColor:
+              priority == "high"
+                ? Colors.dark.tint
+                : Colors.todo.high,
             borderRadius: 30,
           }}>
           High
@@ -128,6 +145,7 @@ const TaskCreationForm = () => {
           width: "100%",
           justifyContent: "space-between",
           alignItems: "center",
+          marginBottom: 120,
         }}>
         <PoppinsText
           style={{
@@ -180,6 +198,7 @@ export default TaskCreationForm;
 const styles = StyleSheet.create({
   container: {
     // alignItems: "center",
+    flex: 1,
     color: Colors.dark.text,
     backgroundColor: Colors.dark.background,
   },

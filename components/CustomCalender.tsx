@@ -31,9 +31,16 @@ const CustomCalendar = (props: Props) => {
     todayButtonTextColor: Colors.dark.tint,
   });
 
-  // const onDateChanged = useCallback((date, updateSource) => {
-  //   console.log('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
-  // }, []);
+  const onDateChanged = useCallback(
+    (date: any, updateSource: any) => {
+      console.log(
+        "ExpandableCalendarScreen onDateChanged: ",
+        date,
+        updateSource
+      );
+    },
+    []
+  );
 
   // const onMonthChange = useCallback(({dateString}) => {
   //   console.log('ExpandableCalendarScreen onMonthChange: ', dateString);
@@ -46,7 +53,7 @@ const CustomCalendar = (props: Props) => {
   return (
     <CalendarProvider
       date={ITEMS[1]?.title}
-      // onDateChanged={onDateChanged}
+      onDateChanged={onDateChanged}
       // onMonthChange={onMonthChange}
       showTodayButton
       // disabledOpacity={0.6}
@@ -110,6 +117,7 @@ export default CustomCalendar;
 
 const styles = StyleSheet.create({
   calendar: {
+    flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
   },

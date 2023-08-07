@@ -14,7 +14,6 @@ export default function ModalScreen() {
       style={styles.container}
       lightColor={Colors.light.background}
       darkColor={Colors.dark.background}>
-      <CustomCalendar />
       <MonoText
         style={styles.title}
         lightColor={Colors.light.text}
@@ -43,6 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     // fontWeight: "bold",
     color: Colors.dark.text,
+    marginBottom: 10,
   },
   separator: {
     marginVertical: 30,

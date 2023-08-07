@@ -4,25 +4,6 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 
-interface Category {
-  id: string;
-  name: string;
-  tasks: Task[];
-}
-
-interface Task {
-  id: string;
-  name: string;
-  categoryId: string;
-}
-
-interface TasksState {
-  categories: Category[];
-  tasks: Task[];
-  selectedCategory: Category | null;
-  selectedTask: Task | null;
-}
-
 const initialState: TasksState = {
   categories: [],
   tasks: [],

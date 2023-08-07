@@ -10,12 +10,17 @@ import { RootState } from "../redux/store";
 import { setCategories } from "../redux/TasksSlice";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { Button } from "@rneui/base";
+import { FontAwesome } from "@expo/vector-icons";
 const CategoryList = () => {
   const categories = useSelector(
     (state: RootState) => state.TasksSlice.categories
   );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(categories);
+  }, []);
   return (
     <>
       <View
@@ -37,23 +42,65 @@ const CategoryList = () => {
           see all
         </MonoText>
       </View>
-      <View style={{ height: 140 }}>
-        <ScrollView
-          horizontal={true}
-          style={{
-            flex: 0.1,
-            backgroundColor: Colors.dark.background,
-            paddingHorizontal: 20,
-            gap: 4,
-          }}>
-          {categories.map((category, i) => (
-            <CatgoryCard
-              key={i}
-              name={category.name}
-              taskLength={category.tasks.length}
+      <View
+        lightColor={Colors.light.background}
+        darkColor={Colors.dark.background}
+        style={{
+          height: categories.length > 0 ? 140 : 90,
+          backgroundColor: Colors.dark.background,
+        }}>
+        {categories.length > 0 ? (
+          <ScrollView
+            horizontal={true}
+            style={{
+              flex: 0.1,
+              backgroundColor: Colors.dark.background,
+              paddingHorizontal: 20,
+              gap: 4,
+            }}>
+            {categories.map((category, i) => (
+              <CatgoryCard
+                key={i}
+                name={category.name}
+                taskLength={category.tasks.length}
+              />
+            ))}
+          </ScrollView>
+        ) : (
+          <View
+            style={{
+              backgroundColor: Colors.dark.background,
+              paddingHorizontal: 20,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 4,
+            }}>
+            <Button
+              containerStyle={{
+                borderRadius: 30,
+                width: "10%",
+                paddingVertical: 30,
+              }}
+              buttonStyle={{
+                backgroundColor: Colors.dark.tint,
+                paddingVertical: 10,
+                borderRadius: 10,
+                paddingHorizontal: 10,
+              }}
+              titleStyle={{
+                color: Colors.dark.text,
+                fontSize: 15,
+              }}
+              title={
+                <FontAwesome
+                  name='plus'
+                  color={Colors.dark.text}
+                />
+              }
             />
-          ))}
-        </ScrollView>
+          </View>
+        )}
       </View>
     </>
   );
