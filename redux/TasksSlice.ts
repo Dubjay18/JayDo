@@ -26,7 +26,11 @@ const tasksSlice = createSlice({
       const category = state.categories.find(
         (c) => c.id === task.categoryId
       );
+      console.log(category);
+
       if (category) {
+        console.log("success");
+
         category.tasks.push(task);
         state.tasks.push(task);
       }

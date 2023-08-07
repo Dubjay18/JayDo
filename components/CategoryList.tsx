@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { router } from "expo-router";
 import { MonoText } from "./StyledText";
 import CatgoryCard from "./CatgoryCard";
@@ -10,19 +10,29 @@ import { RootState } from "../redux/store";
 import { setCategories } from "../redux/TasksSlice";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { Button } from "@rneui/base";
+import { Button, Dialog } from "@rneui/base";
 import { FontAwesome } from "@expo/vector-icons";
+import CategoryForm from "./CategoryForm";
 const CategoryList = () => {
   const categories = useSelector(
     (state: RootState) => state.TasksSlice.categories
   );
+  const [visible1, setVisible1] = useState(false);
   const dispatch = useDispatch();
-
+  const toggleDialog1 = () => {
+    setVisible1(!visible1);
+  };
   useEffect(() => {
     console.log(categories);
   }, []);
   return (
     <>
+      <Dialog
+        isVisible={visible1}
+        onBackdropPress={toggleDialog1}>
+        <Dialog.Title title='Dialog Title' />
+        <CategoryForm />
+      </Dialog>
       <View
         lightColor={Colors.light.text}
         darkColor={Colors.dark.background}
@@ -77,6 +87,7 @@ const CategoryList = () => {
               gap: 4,
             }}>
             <Button
+              onPress={toggleDialog1}
               containerStyle={{
                 borderRadius: 30,
                 width: "10%",

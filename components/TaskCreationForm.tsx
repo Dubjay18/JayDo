@@ -41,6 +41,14 @@ const TaskCreationForm = () => {
           description: taskDescription,
         })
       );
+      console.log({
+        id: uuidv4(),
+        name: taskName,
+        categoryId: category,
+        priority: priority,
+        alert: checked,
+        description: taskDescription,
+      });
     }
   };
   return (
@@ -242,7 +250,7 @@ const TaskCreationForm = () => {
           fontSize: 25,
         }}
         title='Create Task'
-        onPress={() => console.log("Create Task")}>
+        onPress={() => createTask()}>
         Create Task
       </Button>
     </View>
