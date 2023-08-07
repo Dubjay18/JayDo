@@ -5,6 +5,11 @@ import Colors from "../constants/Colors";
 import { Button, Input, Switch } from "@rneui/base";
 import { MonoText, PoppinsText } from "./StyledText";
 import CustomCalendar from "./CustomCalender";
+import { Picker } from "@react-native-picker/picker";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../redux/store";
+import { v4 as uuidv4 } from "uuid";
+import { setTasks } from "../redux/TasksSlice";
 
 const TaskCreationForm = () => {
   const [checked, setChecked] = useState(false);
@@ -12,9 +17,31 @@ const TaskCreationForm = () => {
   const [taskDescription, setTaskDescription] =
     useState("");
   const [priority, setPriority] = useState("");
-
+  const [category, setCategory] = useState("");
+  const categories = useSelector(
+    (state: RootState) => state.TasksSlice.categories
+  );
+  const dispatch = useDispatch();
   const toggleSwitch = () => {
     setChecked(!checked);
+  };
+  const createTask = () => {
+    if (
+      priority == "low" ||
+      priority == "medium" ||
+      priority == "high"
+    ) {
+      dispatch(
+        setTasks({
+          id: uuidv4(),
+          name: taskName,
+          categoryId: category,
+          priority: priority,
+          alert: checked,
+          description: taskDescription,
+        })
+      );
+    }
   };
   return (
     <View
@@ -31,6 +58,7 @@ const TaskCreationForm = () => {
         labelStyle={{
           marginHorizontal: 20,
           marginVertical: 5,
+          color: Colors.dark.text,
         }}
         style={styles.input}
         label='Task Name'
@@ -41,18 +69,47 @@ const TaskCreationForm = () => {
           borderBottomWidth: 0,
           backgroundColor: Colors.dark.inputBackground,
           paddingHorizontal: 20,
-          borderRadius: 20,
         }}
 
         // lightColor={Colors.light.text}
         // darkColor={Colors.dark.background}
       />
+      <Text
+        style={{
+          color: Colors.dark.text,
+          marginLeft: 29,
+          fontWeight: "bold",
+        }}>
+        Category
+      </Text>
+      <Picker
+        style={styles.picker}
+        selectedValue={category}
+        onValueChange={(itemValue, itemIndex) =>
+          setCategory(itemValue)
+        }>
+        {categories.length > 0 ? (
+          categories.map((item, i) => (
+            <Picker.Item
+              key={i}
+              label={item.name}
+              value={item.id}
+            />
+          ))
+        ) : (
+          <Picker.Item label='Select category' value='' />
+        )}
+        {/* <Picker.Item label="Java" value="java" />
+  <Picker.Item label="JavaScript" value="js" /> */}
+        {}
+      </Picker>
       <Input
         multiline={true}
         numberOfLines={4}
         labelStyle={{
           marginHorizontal: 20,
           marginVertical: 5,
+          color: Colors.dark.text,
         }}
         style={styles.input}
         label='Task description'
@@ -63,7 +120,6 @@ const TaskCreationForm = () => {
           borderBottomWidth: 0,
           backgroundColor: Colors.dark.inputBackground,
           paddingHorizontal: 20,
-          borderRadius: 20,
         }}
 
         // lightColor={Colors.light.text}
@@ -145,7 +201,7 @@ const TaskCreationForm = () => {
           width: "100%",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 120,
+          marginBottom: 20,
         }}>
         <PoppinsText
           style={{
@@ -202,17 +258,29 @@ const styles = StyleSheet.create({
     color: Colors.dark.text,
     backgroundColor: Colors.dark.background,
   },
+
   input: {
     backgroundColor: Colors.dark.inputBackground,
     color: Colors.dark.text,
     // borderColor: Colors.dark.text,
     // borderWidth: 1,
-    borderRadius: 10,
 
     paddingVertical: 2,
     marginHorizontal: 2,
     marginVertical: 5,
     width: 200,
+  },
+  picker: {
+    backgroundColor: Colors.dark.inputBackground,
+    color: Colors.dark.text,
+    // borderColor: Colors.dark.text,
+    // borderWidth: 1,
+    borderRadius: 30,
+
+    paddingVertical: 2,
+    marginHorizontal: 6,
+    marginVertical: 5,
+    width: 340,
   },
   title: {
     fontSize: 20,
