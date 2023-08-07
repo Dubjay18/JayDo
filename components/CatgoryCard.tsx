@@ -1,14 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Colors from "../constants/Colors";
 import { MonoText } from "./StyledText";
 
 const CatgoryCard = () => {
   return (
-    <View style={styles.container}>
-      <MonoText style={styles.taskText}>1 tasks</MonoText>
-      <Text style={styles.text}>CatgoryCard</Text>
-    </View>
+    <TouchableOpacity>
+      <View style={styles.container}>
+        <MonoText style={styles.taskText}>1 tasks</MonoText>
+        <Text style={styles.text}>CatgoryCard</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

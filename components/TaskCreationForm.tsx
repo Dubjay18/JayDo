@@ -7,6 +7,9 @@ import { MonoText, PoppinsText } from "./StyledText";
 
 const TaskCreationForm = () => {
   const [checked, setChecked] = useState(false);
+  const [taskName, setTaskName] = useState("");
+  const [taskDescription, setTaskDescription] =
+    useState("");
 
   const toggleSwitch = () => {
     setChecked(!checked);
@@ -29,6 +32,8 @@ const TaskCreationForm = () => {
         style={styles.input}
         label='Task Name'
         placeholder='Name'
+        value={taskName}
+        onChangeText={(e) => setTaskName(e)}
         inputContainerStyle={{
           borderBottomWidth: 0,
           backgroundColor: Colors.dark.inputBackground,
@@ -47,6 +52,8 @@ const TaskCreationForm = () => {
         style={styles.input}
         label='Task description'
         placeholder='description'
+        value={taskDescription}
+        onChangeText={(text) => setTaskDescription(text)}
         inputContainerStyle={{
           borderBottomWidth: 0,
           backgroundColor: Colors.dark.inputBackground,
@@ -57,58 +64,7 @@ const TaskCreationForm = () => {
         // lightColor={Colors.light.text}
         // darkColor={Colors.dark.background}
       />
-      <View
-        style={{
-          backgroundColor: Colors.dark.background,
-          flexDirection: "row",
-          gap: 5,
-          maxWidth: "50%",
-        }}>
-        <Input
-          labelStyle={{
-            marginHorizontal: 20,
-            marginVertical: 5,
-          }}
-          style={styles.timeInput}
-          label='Start time'
-          placeholder='9.00am'
-          inputContainerStyle={{
-            borderBottomWidth: 0,
-            backgroundColor: Colors.dark.inputBackground,
-            paddingHorizontal: 20,
-            borderRadius: 20,
-          }}
-          leftIcon={{
-            type: "font-awesome",
-            name: "clock-o",
-            color: Colors.dark.tint,
-          }}
-          // lightColor={Colors.light.text}
-          // darkColor={Colors.dark.background}
-        />
-        <Input
-          labelStyle={{
-            marginHorizontal: 20,
-            marginVertical: 5,
-          }}
-          style={styles.timeInput}
-          label='End time'
-          placeholder='9.00pm'
-          inputContainerStyle={{
-            borderBottomWidth: 0,
-            backgroundColor: Colors.dark.inputBackground,
-            paddingHorizontal: 20,
-            borderRadius: 20,
-          }}
-          leftIcon={{
-            type: "font-awesome",
-            name: "clock-o",
-            color: Colors.dark.tint,
-          }}
-          // lightColor={Colors.light.text}
-          // darkColor={Colors.dark.background}
-        />
-      </View>
+
       <MonoText
         style={styles.title}
         lightColor={Colors.light.text}

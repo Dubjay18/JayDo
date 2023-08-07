@@ -24,9 +24,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  useEffect(() => {
-    router.push("AuthPage");
-  }, []);
+
   return (
     <Tabs
       screenOptions={{
