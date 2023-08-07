@@ -278,7 +278,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
 
     paddingVertical: 2,
-    marginHorizontal: 6,
+    marginRight: 6,
+    marginLeft: 10,
     marginVertical: 5,
     width: 340,
   },
