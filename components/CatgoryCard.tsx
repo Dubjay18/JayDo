@@ -8,12 +8,20 @@ import React from "react";
 import Colors from "../constants/Colors";
 import { MonoText } from "./StyledText";
 
-const CatgoryCard = () => {
+const CatgoryCard = ({
+  name,
+  taskLength,
+}: {
+  name: string;
+  taskLength: number;
+}) => {
   return (
     <TouchableOpacity>
       <View style={styles.container}>
-        <MonoText style={styles.taskText}>1 tasks</MonoText>
-        <Text style={styles.text}>CatgoryCard</Text>
+        <MonoText style={styles.taskText}>
+          {taskLength} tasks
+        </MonoText>
+        <Text style={styles.text}>{name}</Text>
       </View>
     </TouchableOpacity>
   );

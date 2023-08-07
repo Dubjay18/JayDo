@@ -19,6 +19,8 @@ import {
   PoppinsBoldText,
 } from "../components/StyledText";
 import { Button, Icon } from "@rneui/base";
+import { Provider } from "react-redux";
+import { store } from "../redux/store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -189,64 +191,66 @@ function RootLayoutNav() {
   // colorScheme === 'dark' ? DarkTheme : DefaultTheme
   return (
     <>
-      <ThemeProvider value={DarkTheme}>
-        <Stack>
-          <Stack.Screen
-            name='(tabs)'
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='AddTask'
-            options={{
-              presentation: "transparentModal",
-              gestureEnabled: true,
-              headerTitle: "Create New Task",
-              headerStyle: {
-                backgroundColor: "#000",
-              },
-              headerLeft: ({}) => (
-                <FontAwesome
-                  name='close'
-                  size={25}
-                  color={Colors.dark.text}
-                  style={{
-                    marginLeft: 25,
-                    marginRight: 55,
-                  }}
-                  onPress={() => router.back()}
-                />
-              ),
-              // headerBackground: () => (
-              //   <View
-              //     style={{
-              //       backgroundColor: "transparent",
-              //     }}
-              //   />
-              // ),
-            }}
-          />
-          <Stack.Screen
-            name='AllTasks'
-            // options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='TaskModal'
-            options={{
-              presentation: "modal",
-              gestureEnabled: true,
-              // headerTitle: "Task Details",
-              headerStyle: {
-                backgroundColor: "#000",
-              },
-              headerTintColor: Colors.dark.text,
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
-              // ...TransitionPresets.ModalPresentationIOS,
-            }}
-          />
-        </Stack>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider value={DarkTheme}>
+          <Stack>
+            <Stack.Screen
+              name='(tabs)'
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='AddTask'
+              options={{
+                presentation: "transparentModal",
+                gestureEnabled: true,
+                headerTitle: "Create New Task",
+                headerStyle: {
+                  backgroundColor: "#000",
+                },
+                headerLeft: ({}) => (
+                  <FontAwesome
+                    name='close'
+                    size={25}
+                    color={Colors.dark.text}
+                    style={{
+                      marginLeft: 25,
+                      marginRight: 55,
+                    }}
+                    onPress={() => router.back()}
+                  />
+                ),
+                // headerBackground: () => (
+                //   <View
+                //     style={{
+                //       backgroundColor: "transparent",
+                //     }}
+                //   />
+                // ),
+              }}
+            />
+            <Stack.Screen
+              name='AllTasks'
+              // options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='TaskModal'
+              options={{
+                presentation: "modal",
+                gestureEnabled: true,
+                // headerTitle: "Task Details",
+                headerStyle: {
+                  backgroundColor: "#000",
+                },
+                headerTintColor: Colors.dark.text,
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                // ...TransitionPresets.ModalPresentationIOS,
+              }}
+            />
+          </Stack>
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
