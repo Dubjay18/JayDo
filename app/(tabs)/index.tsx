@@ -50,9 +50,7 @@ export default function TabOneScreen() {
           <Avatar
             size={40}
             rounded
-            source={{
-              uri: "https://randomuser.me/api/portraits/men/36.jpg",
-            }}
+            source={require("../../assets/images/bg-image.jpg")}
           />
         </View>
       </View>
