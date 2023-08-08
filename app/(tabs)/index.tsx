@@ -103,6 +103,7 @@ export default function TabOneScreen() {
           {tasks.map((task) => (
             <TaskCard
               key={task.id}
+              id={task.id}
               title={task.name}
               description={task.description}
               priority={task.priority}

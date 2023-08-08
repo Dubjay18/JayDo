@@ -22,7 +22,7 @@ const TaskCard = ({
   // priority == 'low' ?Colors.todo.low : priority == 'medium' ? Colors.todo.medium : Colors.todo.high,
   return (
     <TouchableOpacity
-      onPress={() => router.push("/TaskModal")}>
+      onPress={() => router.push(`/TaskModal/${id}`)}>
       <View
         style={[
           styles.container,

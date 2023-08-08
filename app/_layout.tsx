@@ -233,11 +233,11 @@ function RootLayoutNav() {
               // options={{ headerShown: false }}
             />
             <Stack.Screen
-              name='TaskModal'
+              name='TaskModal/[id]'
               options={{
                 presentation: "modal",
                 gestureEnabled: true,
-                // headerTitle: "Task Details",
+                headerTitle: "Task Details",
                 headerStyle: {
                   backgroundColor: "#000",
                 },
