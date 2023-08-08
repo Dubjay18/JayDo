@@ -13,9 +13,14 @@ import TaskCard from "../../components/TaskCard";
 import { router } from "expo-router";
 import CatgoryCard from "../../components/CatgoryCard";
 import CategoryList from "../../components/CategoryList";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export default function TabOneScreen() {
   const input = React.createRef();
+  const tasks = useSelector(
+    (state: RootState) => state.TasksSlice.tasks
+  );
   return (
     <View
       style={styles.container}
@@ -95,10 +100,14 @@ export default function TabOneScreen() {
           </MonoText>
         </View>
         <ScrollView style={{ flex: 0.5 }}>
-          <TaskCard />
-          <TaskCard />
-          <TaskCard />
-          <TaskCard />
+          {tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              title={task.name}
+              description={task.description}
+              priority={task.priority}
+            />
+          ))}
         </ScrollView>
       </View>
       {/* <EditScreenInfo path='app/(tabs)/index.tsx' /> */}

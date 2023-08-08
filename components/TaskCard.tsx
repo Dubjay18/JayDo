@@ -9,17 +9,32 @@ import { Link, router } from "expo-router";
 interface ITaskCardProps {
   title?: string;
   description?: string;
+  priority?: string;
+  id: string;
 }
 const TaskCard = ({
   title = "Mobile app",
   description = "build a mobile app",
+  priority = "low",
+  id,
 }: ITaskCardProps) => {
   const [selectedIndex, setIndex] = React.useState(false);
+  // priority == 'low' ?Colors.todo.low : priority == 'medium' ? Colors.todo.medium : Colors.todo.high,
   return (
     <TouchableOpacity
       onPress={() => router.push("/TaskModal")}>
       <View
-        style={styles.container}
+        style={[
+          styles.container,
+          {
+            borderLeftColor:
+              priority == "low"
+                ? Colors.todo.low
+                : priority == "medium"
+                ? Colors.todo.medium
+                : Colors.todo.high,
+          },
+        ]}
         lightColor={Colors.light.text}
         darkColor={Colors.dark.background}>
         <View
@@ -68,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: Colors.dark.inputBackground,
     borderLeftWidth: 5,
-    borderLeftColor: Colors.todo.low,
+
     flexDirection: "row",
     width: "90%",
     overflow: "hidden",

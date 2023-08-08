@@ -75,6 +75,39 @@ const CategoryList = () => {
                 taskLength={category.tasks.length}
               />
             ))}
+            <View
+              style={{
+                paddingHorizontal: 10,
+                borderRadius: 10,
+                paddingVertical: 10,
+                marginLeft: 10,
+                marginRight: 13,
+              }}>
+              <Button
+                onPress={toggleDialog1}
+                containerStyle={{
+                  borderRadius: 30,
+                  width: "100%",
+                  paddingVertical: 30,
+                }}
+                buttonStyle={{
+                  backgroundColor: Colors.dark.tint,
+                  paddingVertical: 10,
+                  borderRadius: 10,
+                  paddingHorizontal: 10,
+                }}
+                titleStyle={{
+                  color: Colors.dark.text,
+                  fontSize: 15,
+                }}
+                title={
+                  <FontAwesome
+                    name='plus'
+                    color={Colors.dark.text}
+                  />
+                }
+              />
+            </View>
           </ScrollView>
         ) : (
           <View
