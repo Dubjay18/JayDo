@@ -46,11 +46,12 @@ const CategoryList = () => {
         <MonoText style={styles.subTitle}>
           Categories
         </MonoText>
-        <MonoText
+        {/* <MonoText
           style={styles.subText}
-          onPress={() => router.push("AllTasks")}>
+          onPress={() => router.push("AllTasks")}
+          >
           see all
-        </MonoText>
+        </MonoText> */}
       </View>
       <View
         lightColor={Colors.light.background}

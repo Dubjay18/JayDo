@@ -7,8 +7,13 @@ import {
 import React from "react";
 import Colors from "../constants/Colors";
 import TaskCard from "../components/TaskCard";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const AllTasks = () => {
+  const tasks = useSelector(
+    (state: RootState) => state.TasksSlice.tasks
+  );
   return (
     <View
       style={{
@@ -17,15 +22,15 @@ const AllTasks = () => {
         // marginTop: 100,
       }}>
       <ScrollView>
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
+        {tasks.map((task: Task) => (
+          <TaskCard
+            key={task.id}
+            id={task.id}
+            title={task.name}
+            description={task.description}
+            priority={task.priority}
+          />
+        ))}
       </ScrollView>
     </View>
   );

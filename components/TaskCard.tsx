@@ -44,7 +44,15 @@ const TaskCard = ({
           }}
           lightColor={Colors.light.text}
           darkColor={Colors.dark.inputBackground}>
-          <PoppinsBoldText style={styles.title}>
+          <PoppinsBoldText
+            style={[
+              styles.title,
+              {
+                textDecorationLine: selectedIndex
+                  ? "line-through"
+                  : "none",
+              },
+            ]}>
             {title}
           </PoppinsBoldText>
           <MonoText style={styles.subTitle}>
