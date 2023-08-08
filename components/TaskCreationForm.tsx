@@ -8,8 +8,9 @@ import CustomCalendar from "./CustomCalender";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
-import { v4 as uuidv4 } from "uuid";
 import { setTasks } from "../redux/TasksSlice";
+import { router } from "expo-router";
+import { generateRandomId } from "../utils";
 
 const TaskCreationForm = () => {
   const [checked, setChecked] = useState(false);
@@ -33,7 +34,7 @@ const TaskCreationForm = () => {
     ) {
       dispatch(
         setTasks({
-          id: uuidv4(),
+          id: generateRandomId(),
           name: taskName,
           categoryId: category,
           priority: priority,
@@ -42,13 +43,16 @@ const TaskCreationForm = () => {
         })
       );
       console.log({
-        id: uuidv4(),
+        id: generateRandomId(),
         name: taskName,
         categoryId: category,
         priority: priority,
         alert: checked,
         description: taskDescription,
       });
+      setTimeout(() => {
+        router.back();
+      }, 100);
     }
   };
   return (
@@ -96,17 +100,16 @@ const TaskCreationForm = () => {
         onValueChange={(itemValue, itemIndex) =>
           setCategory(itemValue)
         }>
-        {categories.length > 0 ? (
+        <Picker.Item label='Select category' value='' />
+
+        {categories.length > 0 &&
           categories.map((item, i) => (
             <Picker.Item
               key={i}
               label={item.name}
               value={item.id}
             />
-          ))
-        ) : (
-          <Picker.Item label='Select category' value='' />
-        )}
+          ))}
         {/* <Picker.Item label="Java" value="java" />
   <Picker.Item label="JavaScript" value="js" /> */}
         {}

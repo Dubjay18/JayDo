@@ -31,7 +31,7 @@ const CategoryList = () => {
         isVisible={visible1}
         onBackdropPress={toggleDialog1}>
         <Dialog.Title title='Dialog Title' />
-        <CategoryForm />
+        <CategoryForm toggle={toggleDialog1} />
       </Dialog>
       <View
         lightColor={Colors.light.text}

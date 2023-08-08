@@ -5,19 +5,27 @@ import { View } from "./Themed";
 import Colors from "../constants/Colors";
 import { useDispatch } from "react-redux";
 import { setCategories } from "../redux/TasksSlice";
-import { v4 as uuidv4 } from "uuid";
-const CategoryForm = () => {
+
+import { generateRandomId } from "../utils";
+const CategoryForm = ({
+  toggle,
+}: {
+  toggle: () => void;
+}) => {
   const [categoryName, setCategoryName] = useState("");
   const dispatch = useDispatch();
   const createCategory = () => {
     if (categoryName !== "") {
       dispatch(
         setCategories({
-          id: uuidv4(),
+          id: generateRandomId(),
           name: categoryName,
           tasks: [],
         })
       );
+      setTimeout(() => {
+        toggle();
+      }, 100);
     }
   };
   return (
