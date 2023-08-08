@@ -19,3 +19,9 @@ interface TasksState {
   selectedCategory: Category | null;
   selectedTask: Task | null;
 }
+
+interface UserState {
+  name?: string;
+  email?: string;
+  photoUrl?: string;
+}

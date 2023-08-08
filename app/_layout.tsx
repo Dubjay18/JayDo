@@ -19,8 +19,8 @@ import {
   PoppinsBoldText,
 } from "../components/StyledText";
 import { Button, Icon } from "@rneui/base";
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
+import { Provider, useSelector } from "react-redux";
+import { RootState, store } from "../redux/store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -36,6 +36,7 @@ export default function RootLayout() {
   const [firstLaunch, setFirstLaunch] = React.useState<
     null | boolean
   >(true);
+
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
@@ -180,7 +181,9 @@ export default function RootLayout() {
             ]}
           />
         ) : (
-          <RootLayoutNav />
+          <Provider store={store}>
+            <RootLayoutNav />
+          </Provider>
         ))}
     </>
   );
@@ -189,68 +192,76 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   // colorScheme === 'dark' ? DarkTheme : DefaultTheme
+  const user = useSelector(
+    (state: RootState) => state.UserSlice.user
+  );
+  console.log(user, Object.keys(user).length, "user");
+
   return (
     <>
-      <Provider store={store}>
-        <ThemeProvider value={DarkTheme}>
-          <Stack>
-            <Stack.Screen
-              name='(tabs)'
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name='AddTask'
-              options={{
-                presentation: "transparentModal",
-                gestureEnabled: true,
-                headerTitle: "Create New Task",
-                headerStyle: {
-                  backgroundColor: "#000",
-                },
-                headerLeft: ({}) => (
-                  <FontAwesome
-                    name='close'
-                    size={25}
-                    color={Colors.dark.text}
-                    style={{
-                      marginLeft: 25,
-                      marginRight: 55,
-                    }}
-                    onPress={() => router.back()}
-                  />
-                ),
-                // headerBackground: () => (
-                //   <View
-                //     style={{
-                //       backgroundColor: "transparent",
-                //     }}
-                //   />
-                // ),
-              }}
-            />
-            <Stack.Screen
-              name='AllTasks'
-              // options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name='TaskModal/[id]'
-              options={{
-                presentation: "modal",
-                gestureEnabled: true,
-                headerTitle: "Task Details",
-                headerStyle: {
-                  backgroundColor: "#000",
-                },
-                headerTintColor: Colors.dark.text,
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-                // ...TransitionPresets.ModalPresentationIOS,
-              }}
-            />
-          </Stack>
-        </ThemeProvider>
-      </Provider>
+      <ThemeProvider value={DarkTheme}>
+        <Stack
+          initialRouteName={
+            Object.keys(user).length !== 0
+              ? "(tabs)"
+              : "AuthPage"
+          }>
+          <Stack.Screen
+            name='(tabs)'
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='AddTask'
+            options={{
+              presentation: "transparentModal",
+              gestureEnabled: true,
+              headerTitle: "Create New Task",
+              headerStyle: {
+                backgroundColor: "#000",
+              },
+              headerLeft: ({}) => (
+                <FontAwesome
+                  name='close'
+                  size={25}
+                  color={Colors.dark.text}
+                  style={{
+                    marginLeft: 25,
+                    marginRight: 55,
+                  }}
+                  onPress={() => router.back()}
+                />
+              ),
+              // headerBackground: () => (
+              //   <View
+              //     style={{
+              //       backgroundColor: "transparent",
+              //     }}
+              //   />
+              // ),
+            }}
+          />
+          <Stack.Screen
+            name='AllTasks'
+            // options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='TaskModal/[id]'
+            options={{
+              presentation: "modal",
+              gestureEnabled: true,
+              headerTitle: "Task Details",
+              headerStyle: {
+                backgroundColor: "#000",
+              },
+              headerTintColor: Colors.dark.text,
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+              // ...TransitionPresets.ModalPresentationIOS,
+            }}
+          />
+        </Stack>
+      </ThemeProvider>
     </>
   );
 }

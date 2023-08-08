@@ -21,6 +21,9 @@ export default function TabOneScreen() {
   const tasks = useSelector(
     (state: RootState) => state.TasksSlice.tasks
   );
+  const user: UserState = useSelector(
+    (state: RootState) => state.UserSlice.user
+  );
   return (
     <View
       style={styles.container}
@@ -42,7 +45,7 @@ export default function TabOneScreen() {
             paddingHorizontal: 20,
           }}>
           <PoppinsBoldText style={styles.title}>
-            You have got 4 tasks today to complete
+            Welcome, {user.name}
           </PoppinsBoldText>
           <Avatar
             size={40}

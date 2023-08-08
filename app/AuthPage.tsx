@@ -7,10 +7,7 @@ import React, { useEffect } from "react";
 import { View } from "../components/Themed";
 import { Button } from "@rneui/base";
 import Colors from "../constants/Colors";
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+
 import { auth } from "../firebase";
 import { router } from "expo-router";
 import {
@@ -19,46 +16,34 @@ import {
 } from "../components/StyledText";
 import { StatusBar } from "expo-status-bar";
 import { Input } from "@rneui/themed";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/UserSlice";
 
 const AuthPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(
-      (authUser) => {
-        if (authUser) {
-          router.replace("/(tabs)");
-        }
-      }
-    );
-    return unsubscribe;
-  }, []);
-
-  const signIn = () => {
+  const dispatch = useDispatch();
+  const createUser = () => {
     setLoading(true);
-    signInWithEmailAndPassword(auth, email, password).catch(
-      (err) => {
-        alert(err);
-        setLoading(false);
-      }
-    );
-    setLoading(false);
+    setTimeout(() => {
+      dispatch(
+        setUser({
+          name,
+          email,
+        })
+      );
+      setLoading(false);
+      router.push("/");
+    }, 1000);
   };
   return (
     <KeyboardAvoidingView
       behavior='padding'
       style={styles.container}>
       <StatusBar style='light' />
-      <Image
-        source={require("../assets/images/auth_pic.png")}
-        style={{
-          width: "100%",
-          height: 250,
-          marginTop: 20,
-        }}
-      />
+
       <PoppinsBoldText
         style={{
           color: Colors.dark.text,
@@ -66,35 +51,31 @@ const AuthPage = () => {
           textAlign: "center",
           marginTop: 20,
         }}>
-        Create an account or Sign in to your JayDo account
+        Create an account
       </PoppinsBoldText>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <Input
-            placeholder='Email'
-            autoFocus
-            value={email}
-            onChangeText={(text) => setEmail(text)}
+            placeholder='Name'
+            value={name}
+            style={{ color: "white" }}
+            onChangeText={(text: any) => setName(text)}
           />
           <Input
-            placeholder='password'
-            secureTextEntry
-            value={password}
-            onChangeText={(text: any) => setPassword(text)}
+            placeholder='Email'
+            // autoFocus
+            value={email}
+            style={{ color: "white" }}
+            onChangeText={(text) => setEmail(text)}
           />
         </View>
 
         <Button
-          title='Login'
+          title='Get Started'
           buttonStyle={styles.button}
-          onPress={signIn}
           loading={loading}
           disabled={loading}
-        />
-        <Button
-          buttonStyle={styles.button}
-          title='Register'
-          onPress={() => router.push("/RegisterScreen")}
+          onPress={createUser}
         />
       </View>
     </KeyboardAvoidingView>
