@@ -8,7 +8,7 @@ import { MonoText } from "../components/StyledText";
 import TaskCreationForm from "../components/TaskCreationForm";
 import CustomCalendar from "../components/CustomCalender";
 
-export default function ModalScreen() {
+export default function ModalScreen():JSX.Element {
   return (
     <View
       style={styles.container}

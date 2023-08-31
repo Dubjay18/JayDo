@@ -1,25 +1,34 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, {useEffect} from "react";
 import Colors from "../constants/Colors";
 import { View } from "./Themed";
 import { MonoText, PoppinsBoldText } from "./StyledText";
 import { CheckBox } from "@rneui/themed";
 import { Link, router } from "expo-router";
+import {useDispatch} from "react-redux";
+import {toggleDone} from "../redux/TasksSlice"
 
 interface ITaskCardProps {
   title?: string;
   description?: string;
   priority?: string;
   id: string;
+  done: boolean
 }
 const TaskCard = ({
   title = "Mobile app",
   description = "build a mobile app",
   priority = "low",
   id,
+    done,
 }: ITaskCardProps) => {
-  const [selectedIndex, setIndex] = React.useState(false);
-  // priority == 'low' ?Colors.todo.low : priority == 'medium' ? Colors.todo.medium : Colors.todo.high,
+  const [selectedIndex, setIndex] = React.useState(done);
+const dispatch = useDispatch()
+
+  // useEffect(()=>{
+  //   dispatch(toggleDone({id:id, done:selectedIndex}))
+  //   console.log(selectedIndex)
+  // },[selectedIndex])
   return (
     <TouchableOpacity
       onPress={() => router.push(`/TaskModal/${id}`)}>
@@ -48,7 +57,7 @@ const TaskCard = ({
             style={[
               styles.title,
               {
-                textDecorationLine: selectedIndex
+                textDecorationLine: done
                   ? "line-through"
                   : "none",
               },
@@ -60,8 +69,11 @@ const TaskCard = ({
           </MonoText>
         </View>
         <CheckBox
-          checked={selectedIndex}
-          onPress={() => setIndex(!selectedIndex)}
+          checked={done}
+          onPress={() => {
+            dispatch(toggleDone({id:id, done:!done}))
+
+          }}
           checkedIcon='dot-circle-o'
           uncheckedIcon='circle-o'
           size={25}

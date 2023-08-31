@@ -40,6 +40,7 @@ const TaskCreationForm = () => {
           priority: priority,
           alert: checked,
           description: taskDescription,
+            done: false
         })
       );
       console.log({

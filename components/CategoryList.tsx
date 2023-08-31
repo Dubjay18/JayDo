@@ -83,6 +83,7 @@ const CategoryList = () => {
                 paddingVertical: 10,
                 marginLeft: 10,
                 marginRight: 13,
+                  backgroundColor: Colors.dark.background
               }}>
               <Button
                 onPress={toggleDialog1}
@@ -90,6 +91,7 @@ const CategoryList = () => {
                   borderRadius: 30,
                   width: "100%",
                   paddingVertical: 30,
+
                 }}
                 buttonStyle={{
                   backgroundColor: Colors.dark.tint,

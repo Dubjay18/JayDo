@@ -11,6 +11,8 @@ interface Task {
   priority: "low" | "medium" | "high";
   alert?: boolean;
   description?: string;
+  done: boolean
+
 }
 
 interface TasksState {
@@ -18,6 +20,7 @@ interface TasksState {
   tasks: Task[];
   selectedCategory: Category | null;
   selectedTask: Task | null;
+  done: boolean;
 }
 
 interface UserState {

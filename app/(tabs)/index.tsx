@@ -108,6 +108,7 @@ export default function TabOneScreen() {
               title={task.name}
               description={task.description}
               priority={task.priority}
+              done={task.done}
             />
           ))}
         </ScrollView>

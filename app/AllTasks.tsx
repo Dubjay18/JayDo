@@ -4,16 +4,21 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Colors from "../constants/Colors";
 import TaskCard from "../components/TaskCard";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const AllTasks = () => {
+    const [taskData, setTaskData]  = useState<Task[]>([])
   const tasks = useSelector(
     (state: RootState) => state.TasksSlice.tasks
   );
+    console.log(tasks)
+    useEffect(()=>{
+        setTaskData(tasks)
+    },[tasks])
   return (
     <View
       style={{
@@ -22,13 +27,14 @@ const AllTasks = () => {
         // marginTop: 100,
       }}>
       <ScrollView>
-        {tasks.map((task: Task) => (
+        {taskData.map((task: Task) => (
           <TaskCard
             key={task.id}
             id={task.id}
             title={task.name}
             description={task.description}
             priority={task.priority}
+            done={task.done}
           />
         ))}
       </ScrollView>

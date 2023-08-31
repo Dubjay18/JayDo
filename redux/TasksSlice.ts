@@ -9,6 +9,7 @@ const initialState: TasksState = {
   tasks: [],
   selectedCategory: null,
   selectedTask: null,
+  done: false,
 };
 
 const tasksSlice = createSlice({
@@ -21,8 +22,8 @@ const tasksSlice = createSlice({
         action.payload,
       ];
     },
-    setTasks(state, action: PayloadAction<Task>) {
-      const task = action.payload;
+    setTasks(state, action: PayloadAction<Task>) :void {
+      const task :Task = action.payload;
       const category = state.categories.find(
         (c) => c.id === task.categoryId
       );
@@ -36,6 +37,16 @@ const tasksSlice = createSlice({
       }
 
       // state.tasks = [...state.tasks, action.payload];
+    },
+    toggleDone(state, action: PayloadAction<{id: string, done: boolean}>): void{
+      const task:any = state.tasks.find(
+          (t) => t.id === action.payload.id
+      );
+      console.log(task,"task")
+      if(task){
+        task.done = action.payload.done
+      }
+
     },
     setSelectedCategory(
       state,
@@ -57,6 +68,7 @@ export const {
   setTasks,
   setSelectedCategory,
   setSelectedTask,
+    toggleDone
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
